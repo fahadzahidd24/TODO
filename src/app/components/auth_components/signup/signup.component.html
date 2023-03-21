@@ -70,5 +70,9 @@
 
             box-shadow: 10px 10px 10px #F2F6FF;
             border-radius: 10px; border: none; ">Submit</button>
+            <div *ngFor="let user of users">
+                <img [src]="user.image" alt="asdasd" width="100px" height="100px">
+            </div>
     </form>
 </div>
+

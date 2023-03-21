@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { mimeType } from './mime-type.validator';
 
@@ -10,6 +12,8 @@ import { mimeType } from './mime-type.validator';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
+  users:User[];
+  userSub:Subscription;
   form: FormGroup;
   dpPreview: string;
   constructor(private snackBar: MatSnackBar, private authService: AuthService) { }
@@ -22,7 +26,13 @@ export class SignupComponent {
       confirmPassword: new FormControl(null, { validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)] }),
       image: new FormControl(null, {validators: [Validators.required],asyncValidators: [mimeType]})
     })
+    this.userSub= this.authService.getUserSub().subscribe((users:User[])=>{
+      this.users = users;
+      console.log(this.users[0].image)
+    })
+    
   }
+  
   onSignup() {
     if (this.form.invalid) {
       this.snackBar.open('Invalid Form', 'Close', { verticalPosition: "top", horizontalPosition: "end", panelClass: ['red-snackbar'], duration: 2000 });
@@ -52,5 +62,9 @@ export class SignupComponent {
     };
     reader.readAsDataURL(file);
   }
-
+  
+  
+    ngOnDestroy(){
+      this.userSub.unsubscribe();
+    }
 }
