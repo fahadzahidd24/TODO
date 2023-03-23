@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
@@ -16,7 +17,7 @@ export class NavbarComponent {
   isAuth = false;
   userIdSub: Subscription;
   authSub: Subscription;
-  constructor(private authService: AuthService, private cookieService: CookieService) { }
+  constructor(private authService: AuthService, private cookieService: CookieService,private router:Router) { }
   ngOnInit() {
     if (this.cookieService.get('user')) {
       this.user = JSON.parse(this.cookieService.get('user'));
@@ -25,8 +26,8 @@ export class NavbarComponent {
     this.authSub = this.authService.getAuthListener().subscribe(isAuth => {
       this.isAuth = isAuth.status;
     })
+    
     this.userIdSub = this.authService.getuserEmailListener().subscribe(userEmail => {
-      console.log("chal")
       this.showProfileMenu = false;
       this.userEmail = userEmail;
       this.authService.getUser(this.userEmail).subscribe(response => {
@@ -42,15 +43,19 @@ export class NavbarComponent {
     })
   }
 
-  ngOnDestroy() {
-    this.userIdSub.unsubscribe();
-    this.authSub.unsubscribe();
-  }
-
   onLogout() {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
   onClickProfile() {
     this.showProfileMenu = !this.showProfileMenu;
+  }
+  goToProfileEdit(){
+    this.showProfileMenu = false;
+    this.router.navigate(['/profile']);
+  }
+  ngOnDestroy() {
+    this.userIdSub.unsubscribe();
+    this.authSub.unsubscribe();
   }
 }

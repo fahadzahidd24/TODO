@@ -28,12 +28,12 @@ export class SignupComponent {
   
   onSignup() {
     if (this.form.invalid) {
-      this.snackBar.open('Invalid Form', 'Close', { verticalPosition: "top", horizontalPosition: "end", panelClass: ['red-snackbar'], duration: 2000 });
+      this.snackBar.open('Invalid Form', 'Close', { verticalPosition: "bottom", horizontalPosition: "end", panelClass: ['red-snackbar'], duration: 2000 });
       return;
     }
     else {
       if (this.form.value.password != this.form.value.confirmPassword) {
-        this.snackBar.open('Password and Confirm Password must be same', 'Close', { verticalPosition: "top", horizontalPosition: "end", panelClass: ['red-snackbar'], duration: 2000 });
+        this.snackBar.open('Password and Confirm Password must be same', 'Close', { verticalPosition: "bottom", horizontalPosition: "end", panelClass: ['red-snackbar'], duration: 2000 });
         return;
       }
       else {

@@ -64,7 +64,7 @@ router.post('/login', async (req, res, next) => {
                 res.status(200).send({
                     message: 'Logged In Successfully',
                     token: token,
-                    expiresIn: 15,
+                    expiresIn: 3600,
                     userEmail: userFound[0].email,
                 })
             }
@@ -83,6 +83,25 @@ router.get('/:email',async(req,res,next)=>{
     const userFound = await User.find({email:req.params.email})
     if(userFound){
         res.status(200).json({message:"User Found",user:userFound})
+    }else{
+        res.status(404).json({message:'User not found'})
+    }
+})
+
+router.put('/update/:email', multer({ storage: storage }).single('image'),async(req,res,next)=>{
+    const userFound = await User.find({email:req.params.email})
+    if(userFound){
+        console.log(userFound)
+        const url = req.protocol + '://' + req.get('host');
+        userFound[0].name = req.body.name;
+        userFound[0].email = req.body.email;
+        userFound[0].imagePath = url + '/images/' + req.file.filename;
+        const userUpdated = await userFound[0].save();
+        if(userUpdated){
+            res.status(200).json({message:'User updated successfully',user:userUpdated})
+        }else{
+            res.status(500).json({message:'User update failed'})
+        }
     }else{
         res.status(404).json({message:'User not found'})
     }

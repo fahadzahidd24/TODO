@@ -19,7 +19,7 @@
         <mat-card-header>
             <mat-card-title class="profileCardHeader" style="display:flex;justify-content: center;">
                 <mat-icon class="profileEdit">mode_edit</mat-icon>
-                <a class="profileEdit" [routerLink]="['/profile']">Profile</a>
+                <button class="profileEdit" (click)="goToProfileEdit()">Edit Profile</button>
             </mat-card-title>
         </mat-card-header>
         <hr class="px-2 mt-1 mb-1">

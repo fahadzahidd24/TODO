@@ -48,7 +48,7 @@
     display:flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 button {
@@ -62,7 +62,7 @@ button {
 
 .authBtn{
     color: darkblue;
-    font-weight: 600;
+    font-weight:600;
     font-size: 16px;
     line-height: 24px;
     background: linear-gradient(90deg, #0031a2 0%, #580087 100%);
@@ -78,7 +78,7 @@ button {
 }
 .profileEdit{
     color: darkblue;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     background: linear-gradient(90deg, #0031a2 0%, #580087 100%);
@@ -99,4 +99,7 @@ hr{
     /* border: none; */
     margin: 0;
     
+}
+a{
+    text-decoration: none;
 }

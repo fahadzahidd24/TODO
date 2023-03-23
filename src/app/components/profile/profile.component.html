@@ -17,26 +17,18 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bold">Name *</label>
                         <input type="text" class="form-control" id="name" placeholder="Your Name Here"
-                            formControlName="name"  >
+                            formControlName="name">
                         <div>
                             <small class="text-danger"
-                                *ngIf="form.get('name').hasError('required') && form.get('name').touched">Name is
+                                *ngIf="!form.get('name')  && form.get('name').touched">Name is
                                 required</small>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-bold">Email address *</label>
+                        <label for="email" class="form-label fw-bold">Email address</label>
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                            placeholder="yourEmail@email.com" formControlName="email" readonly
+                            placeholder="yourEmail@email.com" formControlName="email"
                             [ngClass]="{'redBorder': form.get('email').hasError('required') && form.get('email').touched }">
-                        <!-- <div>
-                            <small class="text-danger"
-                                *ngIf="form.get('email').hasError('required') && form.get('email').touched">Email is
-                                required</small>
-                            <small class="text-danger"
-                                *ngIf="form.get('email').hasError('email') && form.get('email').touched">Email is
-                                invalid</small>
-                        </div> -->
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                 </div>
