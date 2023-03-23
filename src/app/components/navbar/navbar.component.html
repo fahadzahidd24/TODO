@@ -1,0 +1,31 @@
+<div class="nav">
+    <nav class="navbar bg-body-tertiary px-4 py-1 d-flex justify-content-between w-100">
+        <div class="title">
+            <a class="navbar-brand fw-bold titleName" [routerLink]="['/home']">PlanAhead</a>
+        </div>
+        <div class="buttons d-flex">
+            <div class="login mx-3">
+                <a  class="authBtn" [routerLink]="['/login']" *ngIf="!isAuth">Login</a>
+            </div>
+            <div class="signup mx-3">
+                <a  class="authBtn" [routerLink]="['/signup']" *ngIf="!isAuth">Signup</a>
+            </div>
+            <div class="profile mx-3" (click)="onClickProfile()" *ngIf="isAuth && user">
+                <img [src]="user.image" alt="sampleImg">
+            </div>
+        </div>
+    </nav>
+    <mat-card class="cardMenu" *ngIf="showProfileMenu && isAuth" >
+        <mat-card-header>
+            <mat-card-title class="profileCardHeader" style="display:flex;justify-content: center;">
+                <mat-icon class="profileEdit">mode_edit</mat-icon>
+                <a class="profileEdit" [routerLink]="['/profile']">Profile</a>
+            </mat-card-title>
+        </mat-card-header>
+        <hr class="px-2 mt-1 mb-1">
+        <mat-card-content  class="profileCardHeader" style="display:flex;justify-content: center;">
+            <mat-icon class="text-dark mt-1" aria-hidden="false">logout</mat-icon>
+            <button class="text-dark mt-1" (click)="onLogout()">Logout</button>
+        </mat-card-content>
+    </mat-card>
+</div>

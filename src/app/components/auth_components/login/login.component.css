@@ -1,0 +1,45 @@
+.mainDiv {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 2%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* flex-direction: column; */
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+}
+
+p {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+}
+.loginCard{
+    min-width: 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 27px;
+    /* border-color: rgba(158, 1, 243, 1); */
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px  rgba(158, 1, 243, 0.405);
+    background: #F2F6FF;
+    backdrop-filter: blur(30px);
+}
+button{
+    background: linear-gradient(90deg, #0651FA 0%, #9E01F3 100%);
+            /* Minimal10 */
+
+            box-shadow: 10px 10px 10px #F2F6FF;
+            border-radius: 10px; border: none;
+}
+button:hover{
+    opacity: 0.8;
+}

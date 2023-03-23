@@ -1,1 +1,32 @@
-asd
+<div class="mainDiv">
+    <div class="logo">
+        <img src="../../../../assets/images/LoginPageLogo.webp" width="600px" alt="TODO LOGO">
+    </div>
+    <div class="loginForm">
+        <div class="card p-5 loginCard">
+            <form [formGroup]="form" class="p-2 d-flex flex-column" (submit)="onLogin()">
+                <div class="headings mb-5">
+                    <h1>Login</h1>
+                    <p>Enter your credentials to login</p>
+                </div>
+                <div class="error" *ngIf="error">
+                    <p class="text-danger" style="font-size:14px; font-weight:bold;">Invalid Credentials</p>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label fw-bold">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                </div>
+                <div class="info">
+                    <a class="form-text" style="font-size:11px;cursor:pointer;" [routerLink]="['/signup']">Don't have an account? Click here to register</a>
+                </div>
+                <div class="loginButton d-flex justify-content-center mt-2">
+                    <button type="submit" class="btn btn-primary w-75">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

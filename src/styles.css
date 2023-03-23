@@ -13,10 +13,6 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     background: #F2F6FF;
     backdrop-filter: blur(30px);
 }
@@ -30,6 +26,11 @@ body {
 }
 .blue-snackbar {
   --mdc-snackbar-container-color:#0651FA  ;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+.green-snackbar {
+  --mdc-snackbar-container-color:#03a000  ;
   --mat-mdc-snack-bar-button-color: #fff;
   --mdc-snackbar-supporting-text-color: #fff;
 }

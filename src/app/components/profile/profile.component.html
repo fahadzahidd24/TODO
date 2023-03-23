@@ -1,0 +1,53 @@
+<div class="mainDiv">
+    <div class="card p-3 signupCard">
+        <h1>Update Profile</h1>
+        <form class="d-flex justify-content-center flex-column align-items-center" [formGroup]="form"
+            (submit)="onUpdate()">
+            <div class="mt-3 d-flex justify-content-center align-items-center flex-column">
+                <div class="avatarDiv">
+                    <img class="avatar" src="../../../../assets/images/Avatar-Profile-PNG-HD-Image.png" alt="Avatar"
+                        (click)="imgUpload.click()" *ngIf="!dpPreview">
+                    <img class="imgUploaded" [src]="dpPreview" alt="Avatar" (click)="imgUpload.click()"
+                        *ngIf="dpPreview">
+                </div>
+                <input type="file" style="visibility:hidden" #imgUpload (change)="onImageUpload($event)">
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="name_email p-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Name *</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name Here"
+                            formControlName="name"  >
+                        <div>
+                            <small class="text-danger"
+                                *ngIf="form.get('name').hasError('required') && form.get('name').touched">Name is
+                                required</small>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">Email address *</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="yourEmail@email.com" formControlName="email" readonly
+                            [ngClass]="{'redBorder': form.get('email').hasError('required') && form.get('email').touched }">
+                        <!-- <div>
+                            <small class="text-danger"
+                                *ngIf="form.get('email').hasError('required') && form.get('email').touched">Email is
+                                required</small>
+                            <small class="text-danger"
+                                *ngIf="form.get('email').hasError('email') && form.get('email').touched">Email is
+                                invalid</small>
+                        </div> -->
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-50 mb-3 mt-2" style="background: linear-gradient(90deg, #0651FA 0%, #9E01F3 100%);
+            /* Minimal10 */
+
+            box-shadow: 10px 10px 10px #F2F6FF;
+            border-radius: 10px; border: none; ">Update Profile</button>
+        </form>
+    </div>
+
+
+</div>
