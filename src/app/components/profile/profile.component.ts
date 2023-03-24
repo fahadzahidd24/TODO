@@ -5,7 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/authentication/auth.service';
-import { UserUpdationService } from 'src/app/services/usersUpdate/user-updation.service';
 import { mimeType } from '../auth_components/signup/mime-type.validator';
 
 @Component({
@@ -15,15 +14,14 @@ import { mimeType } from '../auth_components/signup/mime-type.validator';
 })
 export class ProfileComponent {
   users: User;
+  userImage:File;
   userEmail: string;
   userSub: Subscription;
   form: FormGroup;
   dpPreview: string;
-  constructor(private snackBar: MatSnackBar, private authService: AuthService, private cookieService: CookieService, private userUpdation: UserUpdationService) { }
+  constructor(private snackBar: MatSnackBar, private authService: AuthService, private cookieService: CookieService) { }
   ngOnInit() {
-
     this.form = new FormGroup({
-      //only alphabets can have space in between
       name: new FormControl(null, { validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\ ]*$/)] }),
       email: new FormControl(null, { validators: [Validators.email] }),
       image: new FormControl(null)
@@ -31,16 +29,17 @@ export class ProfileComponent {
     this.form.get('email').disable();
     if (this.cookieService.get('user')) {
       this.users = JSON.parse(this.cookieService.get('user'));
-    }
+    } 
+    this.userImage = new File([this.users.image], "image.png", { type: "image/png" });
     this.form.patchValue({
       name: this.users.name,
       email: this.users.email,
-      image: this.users.image
+      image: this.userImage
     })
-    this.dpPreview = this.users.image;
+    this.dpPreview = this.users.image;  
     this.userEmail = this.form.get('email').value;
   }
-
+  
   onUpdate() {
     if (this.form.invalid) {
       console.log("Invalid Form");
@@ -49,8 +48,7 @@ export class ProfileComponent {
     }
     else {
       console.log(this.userEmail)
-      this.userUpdation.updateUser( this.form.value.name, this.userEmail, this.form.value.image);
-      // this.authService.updateUser(this.form.value.name, this.form.value.email, this.form.value.image);
+      this.authService.updateUser(this.form.value.name, this.userEmail, this.form.value.image);
     }
   }
 

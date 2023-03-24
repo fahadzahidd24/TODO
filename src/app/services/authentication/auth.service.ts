@@ -10,21 +10,15 @@ import { User } from 'src/app/models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  // private users: User[] = [];
   private userEmail: string;
-  // private userId: string;
   private token: string;
   private isAuthenticated:boolean;
   private authListener = new Subject<{ status: boolean }>();
   private userEmailListener = new Subject<string>();
   private tokenTimer: any;
-  // userSub = new Subject<User[]>();
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router, private cookieService: CookieService) { }
 
-  // getUserSub() {
-  //   return this.userSub.asObservable();
-  // }
   getAuthListener() {
     return this.authListener.asObservable();
   }
@@ -39,6 +33,17 @@ export class AuthService {
   }
   getUser(email: string) {
     return this.http.get<{ message: string, user: any }>('http://localhost:3000/api/users/' + email);
+  }
+
+  updateUser(name:string,email:string,image:File){
+    const userData = new FormData();
+    userData.append('name', name);
+    userData.append('email', email);
+    userData.append('image', image, name);
+    this.http.put<{ message: string}>('http://localhost:3000/api/users/update/'+email,userData).subscribe(response => {
+      this.userEmailListener.next(email);
+      this.snackBar.open('Profile Updated Successfully', 'Close', { verticalPosition: "bottom", horizontalPosition: "end", panelClass: ['green-snackbar'], duration: 2000 });
+    })
   }
 
   signUp(name: string, email: string, password: string, image: File) {
@@ -79,7 +84,7 @@ export class AuthService {
     this.clearAuthData();
     clearTimeout(this.tokenTimer);
     this.snackBar.open('Logout Successfully', 'Close', { verticalPosition: "bottom", horizontalPosition: "end", panelClass: ['blue-snackbar'], duration: 2000 });
-    // this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 
   autoAuthUser() {
@@ -124,18 +129,4 @@ export class AuthService {
       expirationDate: new Date(expirationDate)
     }
   }
-  // updateUser(name: string, email: string, image: File) {
-  //   const userData = new FormData();
-  //   userData.append('name', name);
-  //   userData.append('email', email);
-  //   userData.append('image', image, name);
-  //   this.http.put<{ message: string, user: any }>(`http://localhost:3000/api/users/` + this.userId, userData).subscribe(response => {
-  //     this.users[0].name = response.user.name;
-  //     this.users[0].email = response.user.email;
-  //     this.users[0].image = response.user.imagePath;
-  //     this.userSub.next([...this.users]);
-  //     this.snackBar.open('Profile Updated Successfully', 'Close', { verticalPosition: "top", horizontalPosition: "end", panelClass: ['blue-snackbar'], duration: 2000 });
-  //     this.router.navigate(['/profile']);
-  //   })
-  // }
 }

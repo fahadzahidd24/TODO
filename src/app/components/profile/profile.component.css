@@ -1,6 +1,6 @@
 .mainDiv{
-    min-height: 100vh;
-    min-width: 100vw;
+    min-height: 90vh;
+    min-width: 90vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@ p {
 }
 
 .signupCard {
-    min-width: 18rem;
+    /* min-width: 18rem; */
     display: flex;
     justify-content: center;
     align-items: center;

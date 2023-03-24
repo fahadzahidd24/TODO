@@ -31,7 +31,7 @@ export class NavbarComponent {
       this.showProfileMenu = false;
       this.userEmail = userEmail;
       this.authService.getUser(this.userEmail).subscribe(response => {
-        this.user = response.user;
+        // this.user = response.user;
         this.user = {
           name: response.user[0].name,
           email: response.user[0].email,
@@ -45,7 +45,6 @@ export class NavbarComponent {
 
   onLogout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
   }
   onClickProfile() {
     this.showProfileMenu = !this.showProfileMenu;
